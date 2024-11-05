@@ -1,15 +1,13 @@
-package ru.antonov.securitytest.entity;
+package ru.antonov.securitytest.user;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import ru.antonov.securitytest.token.Token;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -34,6 +32,9 @@ public class User implements UserDetails {
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     private String password;
 
