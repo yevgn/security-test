@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/demo-controller")
 public class DemoController {
 
-    //eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzA4MjY4NDgsImV4cCI6MTczMDkxMzI0OH0.odXph8RAmeJSfXrUmtjlMhAFltOfiEExKL8xiYSQops
-    //
     @GetMapping("/main")
     public ResponseEntity<String> sayHello(){
         return ResponseEntity.ok("Hello from secured controller!");

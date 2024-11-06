@@ -47,20 +47,18 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
-        authManager.authenticate(
+        // происходит проверка username и credentials
+        var auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
-
-        var user = userRepository.findByEmail(request.getEmail()).
-                orElseThrow(() -> new IllegalArgumentException("incorrect email"));
-
+        var user = (User) auth.getPrincipal();
         var jwtToken = jwtService.generateToken(user);
+
         revokeAllUserTokens(user);
         saveUserToken(jwtToken, user);
-
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
